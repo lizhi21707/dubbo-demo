@@ -8,5 +8,6 @@
   <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
 
   <dubbo:reference id="demoApi" check="false" interface="com.example.dubbo.api.DemoApi"
-    version="1.0.0"/>
+    version="1.0.0" group="${service_providr_group}"/>
+
 </beans>

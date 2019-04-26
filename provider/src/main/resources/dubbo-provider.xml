@@ -11,5 +11,5 @@
   <dubbo:protocol name="dubbo" port="20890"/>
 
   <dubbo:annotation package="com.example.dubbo.provider"/>
-  <dubbo:service interface="com.example.dubbo.api.DemoApi" ref="demoApi" version="1.0.0"/>
+  <dubbo:service interface="com.example.dubbo.api.DemoApi" ref="demoApi" version="1.0.0" group="${local_service_group}"/>
 </beans>
