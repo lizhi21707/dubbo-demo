@@ -1,8 +1,8 @@
 package com.example.dubbo.consumer;
 
 import com.example.dubbo.api.DemoApi;
-import java.util.UUID;
-import org.apache.dubbo.rpc.RpcContext;
+import com.example.dubbo.api.response.ResponseDTO;
+import com.example.dubbo.api.storage.TraceThreadLocal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +26,12 @@ public class DemoController {
   private DemoApi demoApi;
 
   @GetMapping("/hello")
-  public void sayHello() {
+  public ResponseDTO<String> sayHello() {
     System.out.println("****** demo consumer 被访问 ******");
-    String traceId = UUID.randomUUID().toString();
-    System.out.println(traceId);
-    RpcContext.getContext().setAttachment("traceId", traceId);
+    System.out.println("send trace Id " + TraceThreadLocal.get().getTraceId());
     System.out.println(demoApi.sayHello("akkakaaka"));
     System.out.println("****** demo consumer 访问结束 ******");
+
+    return new ResponseDTO<>();
   }
 }

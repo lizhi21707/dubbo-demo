@@ -1,9 +1,9 @@
 package com.example.dubbo.api.filter;
 
 import com.example.dubbo.api.exception.TraceableRuntimeException;
+import com.example.dubbo.api.storage.TraceThreadLocal;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.lang.reflect.Method;
-import java.util.UUID;
 import org.apache.dubbo.common.Constants;
 import org.apache.dubbo.common.extension.Activate;
 import org.apache.dubbo.common.utils.StringUtils;
@@ -34,11 +34,16 @@ public class GlobalTraceFilter implements Filter {
   @Override
   public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
     String traceId = invocation.getAttachment("traceId");
-    if (!StringUtils.isBlank(traceId)) {
-      RpcContext.getContext().setAttachment("traceId", traceId);
+    if (StringUtils.isNotEmpty(traceId)) {
+      //provider端接收请求
+      if (TraceThreadLocal.get() == null) {
+        TraceThreadLocal.init(traceId);
+      }
     } else {
-      // 第一次发起调用
-      RpcContext.getContext().setAttachment("traceId", UUID.randomUUID().toString());
+      if (TraceThreadLocal.get() != null) {
+        // consumer端第一次发起调用
+        RpcContext.getContext().setAttachment("traceId", TraceThreadLocal.get().getTraceId());
+      }
     }
 
     // return invoker.invoke(invocation);
