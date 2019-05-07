@@ -1,7 +1,8 @@
 package com.example.dubbo.consumer;
 
 import com.example.dubbo.api.DemoApi;
-import org.apache.dubbo.config.annotation.Reference;
+import java.util.UUID;
+import org.apache.dubbo.rpc.RpcContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,10 @@ public class DemoController {
   @GetMapping("/hello")
   public void sayHello() {
     System.out.println("****** demo consumer 被访问 ******");
-    System.out.println(demoApi.sayHello());
+    String traceId = UUID.randomUUID().toString();
+    System.out.println(traceId);
+    RpcContext.getContext().setAttachment("traceId", traceId);
+    System.out.println(demoApi.sayHello("akkakaaka"));
+    System.out.println("****** demo consumer 访问结束 ******");
   }
 }

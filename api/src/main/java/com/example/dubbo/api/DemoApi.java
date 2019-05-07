@@ -10,4 +10,6 @@ public interface DemoApi {
 
   String sayHello();
 
+  String sayHello(String message);
+
 }
