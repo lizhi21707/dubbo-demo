@@ -6,11 +6,11 @@
   <parent>
     <groupId>com.example.dubbo</groupId>
     <artifactId>dubbo-demo</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <artifactId>consumer</artifactId>
-  <version>0.0.2-SNAPSHOT</version>
+  <version>0.0.3-SNAPSHOT</version>
   <name>consumer</name>
   <description>Demo project for Spring Boot</description>
   <packaging>jar</packaging>
