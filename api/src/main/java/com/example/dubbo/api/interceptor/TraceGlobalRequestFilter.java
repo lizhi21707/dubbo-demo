@@ -15,7 +15,7 @@ import javax.servlet.ServletResponse;
  * @author: lizhi1
  * @date: 2019-05-07
  */
-public class TraceFilter implements Filter {
+public class TraceGlobalRequestFilter implements Filter {
 
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {

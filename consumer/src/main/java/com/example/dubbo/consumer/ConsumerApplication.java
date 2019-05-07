@@ -1,8 +1,8 @@
 package com.example.dubbo.consumer;
 
-import com.example.dubbo.api.aspect.ControllerRequestTraceAspectj;
+import com.example.dubbo.api.aspect.TraceRestAspectj;
 import com.example.dubbo.api.exception.TraceableRuntimeException;
-import com.example.dubbo.api.interceptor.TraceFilter;
+import com.example.dubbo.api.interceptor.TraceGlobalRequestFilter;
 import com.example.dubbo.api.storage.TraceThreadLocal;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication(
@@ -40,9 +39,9 @@ public class ConsumerApplication implements WebMvcConfigurer {
   }
 
   @Bean
-  public FilterRegistrationBean<TraceFilter> traceFilter() {
-    FilterRegistrationBean<TraceFilter> registrationBean = new FilterRegistrationBean<>();
-    registrationBean.setFilter(new TraceFilter());
+  public FilterRegistrationBean<TraceGlobalRequestFilter> traceFilter() {
+    FilterRegistrationBean<TraceGlobalRequestFilter> registrationBean = new FilterRegistrationBean<>();
+    registrationBean.setFilter(new TraceGlobalRequestFilter());
     List<String> urlPatterns = new ArrayList<>();
     urlPatterns.add("/*");
     registrationBean.setUrlPatterns(urlPatterns);
@@ -51,7 +50,7 @@ public class ConsumerApplication implements WebMvcConfigurer {
   }
 
   @Bean
-  public ControllerRequestTraceAspectj traceAspectj() {
-    return new ControllerRequestTraceAspectj();
+  public TraceRestAspectj traceAspectj() {
+    return new TraceRestAspectj();
   }
 }

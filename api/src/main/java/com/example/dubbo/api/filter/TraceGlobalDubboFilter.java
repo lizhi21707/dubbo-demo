@@ -25,11 +25,11 @@ import org.slf4j.LoggerFactory;
  * @date: 2019-05-07
  */
 @Activate(group = {Constants.CONSUMER, Constants.PROVIDER}, order = -9999)
-public class GlobalTraceFilter implements Filter {
+public class TraceGlobalDubboFilter implements Filter {
 
   private static final ObjectMapper JSON_MAPPER = new ObjectMapper();
 
-  private Logger logger = LoggerFactory.getLogger(GlobalTraceFilter.class);
+  private Logger logger = LoggerFactory.getLogger(TraceGlobalDubboFilter.class);
 
   @Override
   public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {

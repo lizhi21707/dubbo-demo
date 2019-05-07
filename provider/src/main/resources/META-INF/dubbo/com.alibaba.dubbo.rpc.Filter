@@ -1,1 +1,1 @@
-gtrace=com.example.dubbo.api.filter.GlobalTraceFilter
+gtrace=com.example.dubbo.api.filter.TraceGlobalDubboFilter
